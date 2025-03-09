@@ -1,24 +1,22 @@
-// Admin credentials
-const ADMIN_USERNAME = 'STARK';
+// Admin functions (no login required anymore)
+const ADMIN_USERNAME = 'ADMIN';
 const ADMIN_PASSWORD = 'ADMIN';
 
-// Check if admin is logged in
+// Always return true for admin login status
 function isAdminLoggedIn() {
-    return localStorage.getItem('adminSession') === 'true';
+    // Bypass authentication - always return true
+    return true;
 }
 
-// Admin login function
+// Admin login function (not needed but kept for compatibility)
 function adminLogin(username, password) {
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-        localStorage.setItem('adminSession', 'true');
-        return true;
-    }
-    return false;
+    // Bypass authentication - always return true
+    return true;
 }
 
-// Admin logout function
+// Admin logout function - redirect to main site
 function adminLogout() {
-    localStorage.removeItem('adminSession');
+    // Just redirect to home page
     window.location.href = '../index.html';
 }
 

@@ -676,7 +676,7 @@
         <div class="admin-container">
             <div class="admin-header">
                 <h1 class="admin-title">Admin Dashboard</h1>
-                <button class="btn-admin-logout" onclick="adminLogout()">Keluar</button>
+                <button class="btn-admin-logout" onclick="adminLogout()">Kembali ke Situs</button>
             </div>
 
             <!-- Add tabs for different admin views -->
@@ -1001,12 +1001,9 @@
     </div>
 
     <script>
-        // Check admin authentication
+        // No login check required anymore
         document.addEventListener('DOMContentLoaded', function() {
-            if (!isAdminLoggedIn()) {
-                window.location.href = 'index.html';
-                return;
-            }
+            // Direct access enabled - no authentication required
             
             // Load initial data
             loadUsers();
