@@ -34,6 +34,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            margin-top: 20px;
         }
         
         .admin-access-button:hover {
@@ -46,13 +47,60 @@
             color: #666;
             font-size: 14px;
         }
+
+        .login-form {
+            margin: 20px auto;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 14px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="admin-access-container">
         <h1 class="admin-access-title">Admin Dashboard Access</h1>
         <p>Halaman ini hanya untuk administrator Bengkel Aseng Ketok.</p>
-        <a href="admin.html" class="admin-access-button">Masuk ke Dashboard Admin</a>
+        
+        <div class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Masukkan username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Masukkan password">
+            </div>
+            <button id="loginButton" class="admin-access-button" type="button">Masuk ke Dashboard Admin</button>
+            <div id="errorMessage" class="error-message">Username atau password salah!</div>
+        </div>
+
         <div class="admin-info">
             <p>Halaman admin hanya untuk staf bengkel Aseng Ketok.</p>
             <p>Jika Anda bukan administrator, silakan kembali ke <a href="../index.html">halaman utama</a>.</p>
@@ -60,12 +108,46 @@
     </div>
 
     <script>
-        // Direct access - no login required
         document.addEventListener('DOMContentLoaded', function() {
-            // Auto-redirect to admin page after 1 second
-            setTimeout(function() {
-                window.location.href = 'admin.html';
-            }, 1000);
+            const loginButton = document.getElementById('loginButton');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Set focus to username input
+            usernameInput.focus();
+
+            // Handle login button click
+            loginButton.addEventListener('click', function() {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (username === 'ASENG' && password === 'KETOK') {
+                    // Store authentication in sessionStorage (cleared when browser is closed)
+                    sessionStorage.setItem('adminAuth', 'true');
+                    
+                    // Redirect to admin page
+                    window.location.href = 'admin.html';
+                } else {
+                    // Show error message
+                    errorMessage.style.display = 'block';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            });
+
+            // Also handle Enter key press
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginButton.click();
+                }
+            });
+
+            usernameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    passwordInput.focus();
+                }
+            });
         });
     </script>
 </body>

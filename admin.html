@@ -1001,11 +1001,16 @@
     </div>
 
     <script>
-        // No login check required anymore
+        // Check for authentication
         document.addEventListener('DOMContentLoaded', function() {
-            // Direct access enabled - no authentication required
+            // Check if user is authenticated
+            if (sessionStorage.getItem('adminAuth') !== 'true') {
+                // Not authenticated, redirect to login page
+                window.location.href = 'admin-access.html';
+                return;
+            }
             
-            // Load initial data
+            // User is authenticated, load data
             loadUsers();
             
             // Add tab switching functionality

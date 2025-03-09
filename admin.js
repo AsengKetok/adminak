@@ -1,22 +1,27 @@
-// Admin functions (no login required anymore)
-const ADMIN_USERNAME = 'ADMIN';
-const ADMIN_PASSWORD = 'ADMIN';
+// Admin functions (password protected: ASENG/KETOK)
+const ADMIN_USERNAME = 'ASENG';
+const ADMIN_PASSWORD = 'KETOK';
 
-// Always return true for admin login status
+// Check admin login status from sessionStorage
 function isAdminLoggedIn() {
-    // Bypass authentication - always return true
-    return true;
+    return sessionStorage.getItem('adminAuth') === 'true';
 }
 
-// Admin login function (not needed but kept for compatibility)
+// Admin login function
 function adminLogin(username, password) {
-    // Bypass authentication - always return true
-    return true;
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminAuth', 'true');
+        return true;
+    }
+    return false;
 }
 
 // Admin logout function - redirect to main site
 function adminLogout() {
-    // Just redirect to home page
+    // Clear the session storage
+    sessionStorage.removeItem('adminAuth');
+    
+    // Redirect to home page
     window.location.href = '../index.html';
 }
 
